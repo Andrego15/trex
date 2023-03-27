@@ -53,10 +53,10 @@ cloudsGroup = createGroup();
 obstaclesGroup = createGroup();
 gameOver = createSprite(300,100,25,25)
 gameOver.addImage("restart",GMimage)
-  gmtext = createSprite(100,50,25,25)
+  gmtext = createSprite(300,70,25,25)
     gmtext.addImage("gameov",gmtextimg)
-
-
+gmtext.scale = 1.5
+GMimage.scale= 0.5
 }
 
 
@@ -80,21 +80,21 @@ function draw() {
       gamestate = END
     }
 
-
-    gameOver.visible = false
-    gmtext.visible = false
-
   }
   else if(gamestate === END){
- 
   ground.velocityX=0;
   obstaclesGroup.setVelocityXEach(0)
   cloudsGroup.setVelocityXEach(0)
 trex.velocityY = trex.velocityY + 0.8;
 gameOver.visible = true
 gmtext.visible = true
-trex.changeAnimation("collided",trex_collided)
+if(mousePressedOver(GMimage)){
+reset();
+}
 
+
+
+trex.changeAnimation("collided",trex_collided)
   }
  
   
@@ -103,6 +103,14 @@ trex.changeAnimation("collided",trex_collided)
   drawSprites();
 
 }
+function reset(){
+gamestate = PLAY
+gmtext.visible = false
+GMimage.visible = false
+}
+
+
+
 function spawnClouds(){
   if(frameCount%60===0){
     cloud =createSprite(500,100,40,10);
